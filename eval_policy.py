@@ -65,7 +65,7 @@ opt.h_width = 3
 opt.opt_z = (opt.opt_z == 1)
 opt.opt_a = (opt.opt_a == 1)
 
-data_path = 'traffic-data/state-action-cost/data_i80_v0'
+data_path = 'traffic-data/state-action-cost/data_{}_v0'.format(opt.map)
 
 
 def load_models():
@@ -101,7 +101,7 @@ def load_models():
     return forward_model, value_function, policy_network_il, policy_network_mper, stats
 
 
-dataloader = DataLoader(None, opt, 'i80')
+dataloader = DataLoader(None, opt, opt.map)
 forward_model, value_function, policy_network_il, policy_network_mper, data_stats = load_models()
 splits = torch.load(path.join(data_path, 'splits.pth'))
 
@@ -125,9 +125,22 @@ gym.envs.registration.register(
     )
 )
 
+gym.envs.registration.register(
+    id='US-101-v1',
+    entry_point='map_us101_ctrl:ControlledUS101',
+    kwargs=dict(
+        fps=10,
+        nb_states=opt.ncond,
+        display=False,
+        delta_t=0.1,
+        store_simulator_video=opt.save_sim_video,
+    )
+)
+
 print('Building the environment (loading data, if any)')
 env_names = {
     'i80': 'I-80-v1',
+    'us101': 'US-101-v1'
 }
 
 env = gym.make(env_names[opt.map])

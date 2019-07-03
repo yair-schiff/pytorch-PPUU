@@ -252,6 +252,7 @@ class Car:
             else:
                 self._text[1].right = x
             self._text[1].top = y - self._width // 2
+            self._text[1].bottom = self.get_lane_set()  # draw lane number
             surface.blit(self._text[0], self._text[1])
 
             if self._braked: self._colour = colours['g']
