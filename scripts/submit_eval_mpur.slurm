@@ -14,7 +14,7 @@
 #SBATCH --mail-user=yzs208@nyu.edu
 
 cd ../
-
+source activate PPUU
 srun python3 eval_policy.py \
     -method policy-MPUR \
     -map $map \
