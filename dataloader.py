@@ -19,7 +19,7 @@ class DataLoader:
                 data_files = ['{}.txt/'.format(next(os.walk(data_dir))[1][0])]
             else:
                 data_files = next(os.walk(data_dir))[1]
-
+            data_files.sort()
             self.images = []
             self.actions = []
             self.costs = []
@@ -126,7 +126,7 @@ class DataLoader:
                         'a_std': self.a_std,
                         's_mean': self.s_mean,
                         's_std': self.s_std}, stats_path)
-        
+
         car_sizes_path = data_dir + '/car_sizes.pth'
         print('[loading car sizes: {}]'.format(car_sizes_path))
         self.car_sizes = torch.load(car_sizes_path)
@@ -151,8 +151,8 @@ class DataLoader:
         while nb < self.opt.batch_size:
             s = self.random.choice(indx)
             # min is important since sometimes numbers do not align causing issues in stack operation below
-            T = min(self.images[s].size(0), self.states[s].size(0))  
-            if T > (self.opt.ncond + npred + 1): 
+            T = min(self.images[s].size(0), self.states[s].size(0))
+            if T > (self.opt.ncond + npred + 1):
                 t = self.random.randint(0, T - (self.opt.ncond+npred+1))
                 images.append(self.images[s][t:t+(self.opt.ncond+npred)+1].cuda())
                 actions.append(self.actions[s][t:t+(self.opt.ncond+npred)].cuda())

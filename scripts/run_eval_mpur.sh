@@ -442,9 +442,10 @@ MODEL_DIR="models_us101_v2/"
 MFILE="model=fwd-cnn-vae-fp-layers=3-bsize=8-ncond=20-npred=20-lrt=0.0001-nfeature=256-dropout=0.1-nz=32-beta=1e-06-zdropout=0.5-gclip=5.0-warmstart=0-seed=1.step400000.model"
 
 for policy in ${policies[*]}; do
-    sbatch submit_eval_mpur.slurm \
+    sbatch \
         --output ../logs/eval_policy_${MAP}.out \
         --error ../logs/eval_policy_${MAP}.err \
+        submit_eval_mpur.slurm \
         map=$MAP \
         mfile=$MFILE \
         model_dir=$MODEL_DIR \

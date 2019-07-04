@@ -57,7 +57,7 @@ def lane_cost(images, car_size):
 
     width, length = car_size[:, 0], car_size[:, 1]  # feet
     width = width * SCALE * (0.3048 * 24 / 3.7)  # pixels
-    length = length * SCALE * (0.3048 * 24 / 3.7)  # pixels 
+    length = length * SCALE * (0.3048 * 24 / 3.7)  # pixels
 
     # Create separable proximity mask
     width.fill_(24 * SCALE / 2)
@@ -106,7 +106,7 @@ def proximity_cost(images, states, car_size=(6.4, 14.3), green_channel=1, unnorm
     speed = states[:, 2:].norm(2, 1) * SCALE  # pixel/s
     width, length = car_size[:, 0], car_size[:, 1]  # feet
     width = width * SCALE * (0.3048 * 24 / 3.7)  # pixels
-    length = length * SCALE * (0.3048 * 24 / 3.7)  # pixels 
+    length = length * SCALE * (0.3048 * 24 / 3.7)  # pixels
 
     safe_distance = torch.abs(speed) * safe_factor + (1 * 24 / 3.7) * SCALE  # plus one metre (TODO change)
 
@@ -151,19 +151,24 @@ def parse_car_path(path):
     splits = path.split('/')
     time_slot = splits[-2]
     car_id = int(re.findall('car(\d+).pkl', splits[-1])[0])
-    data_files = {'trajectories-0400-0415': 0,
-                  'trajectories-0500-0515': 1,
-                  'trajectories-0515-0530': 2}
+    if splits[-3].split("_")[1] == "i80":
+        data_files = {'trajectories-0400-0415': 0,
+                    'trajectories-0500-0515': 1,
+                    'trajectories-0515-0530': 2}
+    elif splits[-3].split("_")[1] == "us101":
+        data_files = {'trajectories-0750am-0805am': 0,
+                    'trajectories-0805am-0820am': 1,
+                    'trajectories-0820am-0835am': 2}
     time_slot = data_files[time_slot]
     return time_slot, car_id
 
 
 def plot_mean_and_CI(mean, lb, ub, color_mean=None, color_shading=None):
-    # plot the shaded range of the confidence intervals                                                                                                                                                   
+    # plot the shaded range of the confidence intervals
     time_steps = [i + 3 for i in range(len(mean))]
     plt.fill_between(time_steps, ub, lb,
                      color=color_shading, alpha=0.2)
-    # plot the mean on top                                                                                                                                                                                
+    # plot the mean on top
     plt.plot(time_steps, mean, color_mean)
 
 
@@ -377,9 +382,9 @@ def hinge_loss(u, z):
 
 # second represents the prior
 def kl_criterion(mu1, logvar1, mu2, logvar2):
-    # KL( N(mu_1, sigma2_1) || N(mu_2, sigma2_2)) = 
+    # KL( N(mu_1, sigma2_1) || N(mu_2, sigma2_2)) =
     #   log( sqrt(
-    # 
+    #
     bsize = mu1.size(0)
     sigma1 = logvar1.mul(0.5).exp()
     sigma2 = logvar2.mul(0.5).exp()
