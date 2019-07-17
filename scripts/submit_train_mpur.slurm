@@ -1,11 +1,11 @@
 #!/bin/bash
 #
 #SBATCH --job-name=train_MPUR
-#SBATCH --time=60:00:00
+#SBATCH --time=48:00:00
 #SBATCH --gres gpu:1
-##SBATCH --constraint="gpu_12gb&pascal"
-##SBATCH --exclude="weaver1, weaver2, weaver3, weaver4, weaver5, vine5, vine11"
-##SBATCH --qos=batch
+#SBATCH --constraint="gpu_12gb&pascal"
+#SBATCH --exclude="weaver1, weaver2, weaver3, weaver4, weaver5, vine5, vine11"
+#SBATCH --qos=batch
 #SBATCH --nodes=1
 #SBATCH --mem=48000
 #SBATCH --mail-type=BEGIN

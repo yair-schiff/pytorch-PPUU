@@ -431,6 +431,7 @@ policies=(
 )
 
 #policies=(
+# TODO: ADD MULTIPLE SEEDS AND MULTIPLE STEPS HERE
 #"MPUR-policy-gauss-model=vae-zdropout=0.5-policy-gauss-nfeature=256-bsize=6-npred=30-ureg=0.05-lambdal=0.2-lambdaa=0.0-gamma=0.99-lrtz=0.0-updatez=0-inferz=0-learnedcost=1-seed=1-novaluestep130000.model"
 #)
 
