@@ -462,9 +462,9 @@ policies=(
 #"MPUR-policy-gauss-model=vae-zdropout=0.5-policy-gauss-nfeature=256-bsize=6-npred=30-ureg=0.05-lambdal=0.2-lambdaa=0.0-gamma=0.99-lrtz=0.0-updatez=0-inferz=0-learnedcost=1-seed=1-novaluestep130000.model"
 #)
 
-#policies=(
-#"svg-policy-gauss-model=vae-zdropout=0.5-policy-gauss-nfeature=256-npred=30-ureg=0.05-lambdal=0.2-lambdaa=0.0-gamma=0.99-lrtz=0.0-updatez=0-inferz=0-learnedcost=1-seed=1-novalue.model"
-#)
+policies=(
+"svg-policy-gauss-model=vae-zdropout=0.5-policy-gauss-nfeature=256-npred=30-ureg=0.05-lambdal=0.2-lambdaa=0.0-gamma=0.99-lrtz=0.0-updatez=0-inferz=0-learnedcost=1-seed=1-novalue.model"
+)
 
 MAP="us101"
 #MAP="i80"
@@ -475,8 +475,8 @@ MFILE="model=fwd-cnn-vae-fp-layers=3-bsize=8-ncond=20-npred=20-lrt=0.0001-nfeatu
 
 for policy in ${policies[*]}; do
     sbatch \
-        --output ../logs/eval_policy_${MAP}_us101policy.out \
-        --error ../logs/eval_policy_${MAP}_us101policy.err \
+        --output ../logs/eval_policy_${MAP}_i80policy.out \
+        --error ../logs/eval_policy_${MAP}_i80policy.err \
         submit_eval_mpur.slurm \
         map=$MAP \
         mfile=$MFILE \
