@@ -13,9 +13,15 @@
 #SBATCH --mail-type=FAIL
 #SBATCH --mail-user=yzs208@nyu.edu
 
+<<<<<<< HEAD
 source activate PPUU
 cd ../
+=======
+eval "$(conda shell.bash hook)"
+conda activate PPUU
+>>>>>>> 6483e89d12dbbe5138a9106f3a82b39f9e0ec0ff
 
+cd ../
 srun python train_MPUR.py \
     -npred $npred \
     -u_reg $u_reg \
@@ -26,9 +32,13 @@ srun python train_MPUR.py \
     -infer_z $infer_z \
     -lambda_a $lambda_a \
     -seed $seed \
+<<<<<<< HEAD
     -model $model \
     -dataset $dataset \
     -data_dir $data_dir \
     -model_dir $model_dir \
     -mfile $mfile
+=======
+    -policy 'policy-deterministic'
+>>>>>>> 6483e89d12dbbe5138a9106f3a82b39f9e0ec0ff
 

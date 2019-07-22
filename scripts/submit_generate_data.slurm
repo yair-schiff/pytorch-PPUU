@@ -16,5 +16,5 @@
 
 source activate PPUU 
 cd ../
-srun python generate_trajectories.py -time_slot $1 -v 1
+srun python generate_trajectories.py -time_slot $time_slot -v 1
 
