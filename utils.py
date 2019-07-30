@@ -151,7 +151,6 @@ def parse_car_path(path):
     splits = path.split('/')
     time_slot = splits[-2]
     car_id = int(re.findall('car(\d+).pkl', splits[-1])[0])
-<<<<<<< HEAD
     if splits[-3].split("_")[1] == "i80":
         data_files = {'trajectories-0400-0415': 0,
                     'trajectories-0500-0515': 1,
@@ -160,11 +159,6 @@ def parse_car_path(path):
         data_files = {'trajectories-0750am-0805am': 0,
                     'trajectories-0805am-0820am': 1,
                     'trajectories-0820am-0835am': 2}
-=======
-    data_files = {'trajectories-0400-0415': 0,
-                  'trajectories-0500-0515': 1,
-                  'trajectories-0515-0530': 2}
->>>>>>> 6483e89d12dbbe5138a9106f3a82b39f9e0ec0ff
     time_slot = data_files[time_slot]
     return time_slot, car_id
 
